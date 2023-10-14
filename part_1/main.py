@@ -6,6 +6,32 @@ from io import BytesIO
 from PyPDF2 import PdfReader
 import base64
 
+
+
+from pages import pypdf
+from pages import questionnaire
+from pages import nougat 
+from pages import architecture
+
+def pypdf():
+    st.title("Page 1")
+
+def nougat():
+    st.title("Page 2")
+
+def questionnaire():
+    st.title("Page 3")
+
+def architecture():
+    st.title("Page 4")
+
+mypages = {
+    "Page1": pypdf,
+    "Page2": nougat,
+    "Page3": questionnaire,
+    "Page4": architecture
+}
+
 # Function to extract text from a PDF using PyPDF2
 def extract_text_pypdf(pdf_file):
     pdf_reader = PdfReader(pdf_file)
