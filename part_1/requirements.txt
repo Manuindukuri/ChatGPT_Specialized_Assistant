@@ -71,3 +71,13 @@ wasabi==1.1.2
 watchdog==3.0.0
 weasel==0.3.2
 zipp==3.17.0
+
+# web scrape script requirements
+beautifulsoup4==4.12.2
+certifi==2023.7.22
+charset-normalizer==3.3.0
+idna==3.4
+PyPDF2==3.0.1
+requests==2.31.0
+soupsieve==2.5
+urllib3==2.0.6
