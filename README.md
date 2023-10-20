@@ -4,11 +4,11 @@ This project is a tool for analysts to load pdf documents and get a summary usin
 
 ### Team Information and Contribution 
 
-Name | Email | Contribution 
+Name | Nuid | Contribution 
 --- | --- | --- |
-Prathamesh Kulkarni |kulkarni.prath@northeastern.edu| 33.33% 
-Manohar Indukuri |indukuri.k@northeastern.edu| 33.33% 
-Sarvesh Malpani | malpani.sa@northeastern.edu | 33.33% 
+Prathamesh Kulkarni |001560684| 33.33% 
+Manohar Indukuri |002774942 | 33.33% 
+Sarvesh Malpani | 002776061 | 33.33% 
 
 
 # Link to Live Applications
