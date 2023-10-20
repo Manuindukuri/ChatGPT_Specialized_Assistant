@@ -4,6 +4,7 @@ This project is a tool for analysts to load pdf documents and get a summary usin
 
 ### Team Information and Contribution 
 
+
 Name | NUID | Contribution 
 --- | --- | --- |
 Prathamesh Kulkarni |001560684| 33.33% 
