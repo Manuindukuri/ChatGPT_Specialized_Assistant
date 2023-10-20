@@ -4,7 +4,8 @@ This project is a tool for analysts to load pdf documents and get a summary usin
 
 ### Team Information and Contribution 
 
-Name | Nuid | Contribution 
+
+Name | NUID | Contribution 
 --- | --- | --- |
 Prathamesh Kulkarni |001560684| 33.33% 
 Manohar Indukuri |002774942 | 33.33% 
