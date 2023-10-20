@@ -66,7 +66,7 @@ This application is designed to load PDF documents and automatically generate su
 
 ### Pages and features:
 
--**Main:**This page sets up a web interface for extracting text from PDF documents using two different libraries (PyPDF and Nougat), and it allows users to ask questions based on the extracted text and receive answers from the application which are obtained by using GPT -3.5 Turbo Model. It uses FastAPI to handle API endpoints and Streamlit for the user interface.
+-**Main :** This page sets up a web interface for extracting text from PDF documents using two different libraries (PyPDF and Nougat), and it allows users to ask questions based on the extracted text and receive answers from the application which are obtained by using GPT -3.5 Turbo Model. It uses FastAPI to handle API endpoints and Streamlit for the user interface.
 
 
 # Prerequisites
