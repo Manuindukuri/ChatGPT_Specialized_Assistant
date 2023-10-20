@@ -66,6 +66,7 @@ watchdog==3.0.0
 weasel==0.3.2
 zipp==3.17.0
 fastapi==0.45.0
+uvicorn==3.10.12
 
 # web scrape script requirements
 beautifulsoup4==4.12.2
