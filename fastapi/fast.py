@@ -5,8 +5,16 @@ from PyPDF2 import PdfReader
 from io import BytesIO
 import requests
 import openai
+import os
+from dotenv import load_dotenv
+from fuzzywuzzy import fuzz 
+
+load_dotenv()
 
 app = FastAPI()
+
+# Initialize a dictionary to store previous questions and their answers
+previous_questions = {}
 
 # Pydantic model for the response data
 class TextResponse(BaseModel):
@@ -89,19 +97,55 @@ async def extract_nougat_text(pdf_link:str, ngrok_url:str):
 async def ask_question(request: QuestionRequest):
     try:
         # Get the question from the request
-        # extracted_text = request.extracted_text
+        question = request.question
+        pdf_content = request.pdf_content
 
-        # Send the question to the OpenAI API (you'll need to configure your OpenAI API key)
-        openai.api_key = "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"
-        prompt = f"Context: {request.pdf_content}\nQuestion: {request.question}\nAnswer:"
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=prompt,
-            max_tokens=100
-        )
-        # Extract and return the answer
-        answer = response.choices[0].text
+        # Check if the same or similar question has been asked before
+        best_match_question = None
+        best_match_score = 0
+
+        for prev_question in previous_questions:
+            similarity_score = fuzz.ratio(question, prev_question)
+            if similarity_score > best_match_score:
+                best_match_score = similarity_score
+                best_match_question = prev_question
+
+        if best_match_question and best_match_score > 80:
+            # If a similar question has been asked, return the answer from the similar question
+            answer = previous_questions[best_match_question]
+        else:
+            # If it's a new question, send the question to the OpenAI API
+            openai.api_key = os.getenv("OPEN_AI_KEY")
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "Assist me with answers only if the question is relevant to provided content, if not reply me with \"Sorry, your question is out of context\"."
+                    },
+                    {
+                        "role": "user",
+                        "content": pdf_content
+                    },
+                    {
+                        "role": "assistant",
+                        "content": question
+                    }
+                ],
+                temperature=1,
+                max_tokens=256,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0
+            )
+            # Extract and return the answer
+            answer = response['choices'][-1]['message']['content']
+
+            # Store the new question and its answer in the dictionary
+            previous_questions[question] = answer
+
         return JSONResponse(content={"answer": answer})
     
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
+    

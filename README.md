@@ -7,15 +7,40 @@ This project is a tool for analysts to load pdf documents and get a summary usin
 
 Name | NUID | Contribution 
 --- | --- | --- |
-Prathamesh Kulkarni |001560684| 33.33% 
 Manohar Indukuri |002774942 | 33.33% 
+Prathamesh Kulkarni |001560684| 33.33% 
 Sarvesh Malpani | 002776061 | 33.33% 
 
+# Create virtual environment
+
+### Install virtualenv if you haven't already
+```
+pip install virtualenv
+```
+
+### Create a virtual environment
+```
+virtualenv myenv
+```
+
+### Create python environment for the directory
+```
+python -m venv myenv
+```
+
+### Activate the virtual environment
+```
+source myenv/bin/activate
+```
+
+### Pip install requirements
+```
+pip install -r requirements.txt
+```
 
 # Link to Live Applications
-## Please Use these applications wisely as we are running low on Free Credits. 
 - Streamlit Application - 
-- Codelabs - 
+- Codelabs - https://codelabs-preview.appspot.com/?file_id=1dTgG3eOt01K-niwv8QjoJc1m-HczTReqxmTclldGFU8
 
 # Project Tree
 ```
@@ -24,38 +49,25 @@ Sarvesh Malpani | 002776061 | 33.33%
 ├─ .gitignore
 ├─ LICENSE
 ├─ README.md
-└─ part_1
-   ├─ .DS_Store
+├─ fastapi
+│  └─ fast.py
+├─ openai_notebooks
+│  ├─ embeddings
+│  │  ├─ data_1.csv
+│  │  ├─ filtered_data.csv
+│  │  ├─ new_data.csv
+│  │  ├─ preprocessed_data.csv
+│  │  ├─ processed_data.csv
+│  │  └─ search.ipynb
+│  ├─ summary.jsonl
+│  ├─ summary1.csv
+│  └─ test_creation.ipynb
+├─ requirements.txt
+└─ streamlit_app
    ├─ extracted_text.json
-   ├─ fast.py
    ├─ main.py
-   ├─ openai_notebooks
-   │  ├─ embeddings
-   │  │  ├─ data_1.csv
-   │  │  ├─ filtered_data.csv
-   │  │  ├─ new_data.csv
-   │  │  ├─ preprocessed_data.csv
-   │  │  ├─ processed_data.csv
-   │  │  └─ search.ipynb
-   │  ├─ summary.jsonl
-   │  ├─ summary1.csv
-   │  └─ test_creation.ipynb
    ├─ pdf_contents.txt
    ├─ requirements.txt
-   ├─ streamlit
-   │  └─ .streamlit
-   │     ├─ bin
-   │     │  ├─ Activate.ps1
-   │     │  ├─ activate
-   │     │  ├─ activate.csh
-   │     │  ├─ activate.fish
-   │     │  ├─ pip
-   │     │  ├─ pip3
-   │     │  ├─ pip3.11
-   │     │  ├─ python
-   │     │  ├─ python3
-   │     │  └─ python3.11
-   │     └─ pyvenv.cfg
    ├─ summary.csv
    └─ webscrape.py
 ```

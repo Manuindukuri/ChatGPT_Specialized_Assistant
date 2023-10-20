@@ -9,14 +9,21 @@ import requests
 from fastapi import FastAPI
 from pydantic import BaseModel
 import json
+import os
+from dotenv import load_dotenv 
+
+load_dotenv()
+
+ip_address = os.getenv("IP_ADDRESS")
 
 app=FastAPI()
-
+generated_summary = ""
 st.title("PDF Extraction App")
 
 # Add a radio button to select the PDF processing library
 pdf_library = st.radio("Select PDF processing library:", ["PyPDF", "Nougat"])
 pdf_link = st.text_input("Enter the PDF link here:")
+
 
 if pdf_library == "Nougat":
     ngrok_url = st.text_input('Enter the ngrok url here:')
@@ -49,7 +56,6 @@ if pdf_library == "Nougat":
                     st.subheader("Nougat Extraction:")
                     st.write(extracted_text)          
                     progress_message.empty()
-
                 else:
                     st.error("Failed to analyze the PDF using Nougat API.")
         else:
@@ -106,6 +112,8 @@ if pdf_library == "PyPDF":
         else:
             st.warning("Please enter a valid PDF link.")
 
+st.markdown('---')
+st.subheader("Ask Me")
 user_question = st.text_input("Enter your question:")
 
 if st.button("Ask Question"):
@@ -115,10 +123,13 @@ if st.button("Ask Question"):
         with open(file, 'r') as f:
             data = json.load(f)
 
-        extracted_text = data.get('pdf_content', None)
-        question_data = {"question": user_question, "pdf_content": extracted_text
-        }
-
+        extracted_text = data.get('pdf_content', None)   
+        question_data = {"question": user_question, "pdf_content": extracted_text}
+        generated_summary = extracted_text 
+        if generated_summary:
+            st.subheader("Generated Summary:")
+            st.write(generated_summary)
+            
         # Send the question to the FastAPI endpoint
         response = requests.post('http://127.0.0.1:8000/ask-question', json=question_data)
         
