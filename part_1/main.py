@@ -14,6 +14,7 @@ def extract_text_pypdf(pdf_file):
         text += page.extract_text()
     return text
 
+<<<<<<< Updated upstream
 def ngrok_nougat(pdf_url,ngrok_url):
     try:
         # Download the PDF file from the URL
@@ -43,6 +44,8 @@ def ngrok_nougat(pdf_url,ngrok_url):
     except Exception as e:
         return f"An error occurred: {e}"
     
+=======
+>>>>>>> Stashed changes
 st.title("PDF Extraction App")
 
 # Add a radio button to select the PDF processing library
@@ -77,11 +80,21 @@ if pdf_library == "Nougat":
             result = ngrok_nougat(pdf_link,ngrok_url)
             progress_message.empty()
 
+<<<<<<< Updated upstream
             if result:
                 st.subheader("Nougat Extration:")
                 st.write(result)
             else:
                 st.error("Failed to analyze the PDF using Nougat API.")
+=======
+                if extracted_text:
+                    st.subheader("Nougat Extraction:")
+                    st.write(extracted_text)
+                    progress_message.empty()
+
+                else:
+                    st.error("Failed to analyze the PDF using Nougat API.")
+>>>>>>> Stashed changes
         else:
             st.warning("Please enter both PDF URL and Ngrok URL.")
 
