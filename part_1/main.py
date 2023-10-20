@@ -11,8 +11,8 @@ from pydantic import BaseModel
 import json
 
 app=FastAPI()
-
-st.title("PDF Extraction App")
+generated_text = ""
+st.title("OpenAI Chatbot")
 
 # Add a radio button to select the PDF processing library
 pdf_library = st.radio("Select PDF processing library:", ["PyPDF", "Nougat"])
@@ -118,6 +118,10 @@ if st.button("Ask Question"):
         extracted_text = data.get('pdf_content', None)
         question_data = {"question": user_question, "pdf_content": extracted_text
         }
+        generated_summary = extracted_text 
+        if generated_summary:
+            st.subheader("Generated Summary:")
+            st.write(generated_summary)
 
         # Send the question to the FastAPI endpoint
         response = requests.post('http://127.0.0.1:8000/ask-question', json=question_data)
