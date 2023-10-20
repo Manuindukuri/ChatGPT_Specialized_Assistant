@@ -12,35 +12,6 @@ import json
 
 app=FastAPI()
 
-def ngrok_nougat(pdf_url,ngrok_url):
-    try:
-        # Download the PDF file from the URL
-        response = requests.get(pdf_url)
-        response.raise_for_status()
-
-        # Create a file-like object from the response content
-        file_data = response.content
-
-        # Prepare the file for uploading
-        files = {'file': ('uploaded_file.pdf', file_data, 'application/pdf')}
-
-        # Replace with the ngrok URL provided by ngrok
-        ng_url = ngrok_url 
-
-        # Send the POST request to the Nougat API via ngrok
-        response = requests.post(f'{ng_url}/predict/', files=files, timeout=300)
-
-        # Check if the request to the Nougat API was successful (status code 200)
-        if response.status_code == 200:
-            # Get the response content (Markdown text)
-            markdown_text = response.text
-            return markdown_text
-        else:
-            return f"Failed to make the request! Status Code: {response.status_code}"
-
-    except Exception as e:
-        return f"An error occurred: {e}"
-
 st.title("PDF Extraction App")
 
 # Add a radio button to select the PDF processing library
@@ -76,14 +47,9 @@ if pdf_library == "Nougat":
 
                 if extracted_text:
                     st.subheader("Nougat Extraction:")
-                    st.write(extracted_text)
-                    # Call the conversion function and display the result for Nougat API              
-                    result = ngrok_nougat(pdf_link,ngrok_url)
+                    st.write(extracted_text)          
                     progress_message.empty()
 
-            # if result:
-            #     st.subheader("Nougat Extration:")
-            #     st.write(result)
                 else:
                     st.error("Failed to analyze the PDF using Nougat API.")
         else:
@@ -152,7 +118,6 @@ if st.button("Ask Question"):
         extracted_text = data.get('pdf_content', None)
         question_data = {"question": user_question, "pdf_content": extracted_text
         }
-        print("Came till extracted_text")
 
         # Send the question to the FastAPI endpoint
         response = requests.post('http://127.0.0.1:8000/ask-question', json=question_data)

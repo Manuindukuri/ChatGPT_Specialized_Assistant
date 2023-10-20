@@ -93,15 +93,15 @@ async def ask_question(request: QuestionRequest):
 
         # Send the question to the OpenAI API (you'll need to configure your OpenAI API key)
         openai.api_key = "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"
+        prompt = f"Context: {request.pdf_content}\nQuestion: {request.question}\nAnswer:"
         response = openai.Completion.create(
             engine="text-davinci-003",
-            prompt=f"Content: {request.pdf_content}\nQuestion: {request.question}\nAnswer:",
+            prompt=prompt,
             max_tokens=100
         )
-        print("Before generating answer")
         # Extract and return the answer
         answer = response.choices[0].text
-        print("After generating answer")
         return JSONResponse(content={"answer": answer})
+    
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
